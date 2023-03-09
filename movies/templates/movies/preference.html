@@ -1,0 +1,97 @@
+{% extends "movies/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        {% include 'movies/navbar2.html' %}
+    </div>
+<!-- </div>row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 -->
+<div class="container">
+    <div class="container-fluid movie-show-section">
+        <h5><b>선호하는 영화를 선택해주세요</b></h5>
+        <p style="margin-bottom:20px;">10개를 선택해주세요</p>
+        <div class="row row-cols-5 g-4">
+            {% for movie in movies %}
+            <div class="col">
+                <div class="card text-white" style="background-color:#000000; max-height:500px" id="{{ movie.iid }}" onclick="addMovie(this.id)">
+                    <img src="{{movie.poster}}" class="bd-placeholder-img card-img-top" height="110%"  aria-label="Placeholder: Thumbnail">
+                    <div class="card-body" style="padding-left:1px">
+                        <h3 class="card-title fs-6">{{movie.title}}</h3>
+                      </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+            <div class="col-10 alert alert-success align-items-center d-none" role="alert" id="inform">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill"/>
+                </svg>
+                <div></div>
+            </div>
+            {% csrf_token %}
+            <div class="col d-grid gap-2 d-md-inline-flex justify-content-md-end">
+                <button class="btn btn-danger btn-lg" style="height:60px;" onclick="sendData()">선택 완료</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="for-margin" style="margin-bottom:50px"></div>
+
+<script>
+
+    let movieList = []
+    const inform = document.getElementById('inform')
+    function addMovie(clickId) {
+        let el, tmp
+        el = document.getElementById(clickId)
+
+        tmp = el.id
+        if (movieList.includes(tmp) === true) {
+            movieList.splice(movieList.indexOf(tmp), 1)
+            el.style.border = 'none';
+            el.style.borderRadius = 'none';
+            inform.classList.add('d-none')
+        } else {
+            if (movieList.length < 10) {
+                movieList.push(tmp)
+                el.style.border = "3px solid #ffffff";
+                el.style.borderRadius = "0px"
+                } else if (movieList.length >= 10) {
+                inform.innerHTML = '선택한 영화가 10개가 넘어요'
+                inform.classList.remove('d-none')
+                }        
+            }
+    }
+    
+    async function postData() {
+        console.log(movieList)
+        let data = {"text":movieList};
+        let result = await fetch("http://127.0.0.1:8000/preference/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'application/json',
+                'X-CSRFToken': '{{csrf_token}}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            console.log(response)
+        })
+    }
+
+    async function sendData() {
+        console.log(movieList)
+        if (movieList.length < 10){
+            inform.innerHTML = '영화를 10개 선택해주세요'
+            inform.classList.remove('d-none')
+        } else {
+            postData();
+        }
+    }
+    </script>
+{% endblock %}

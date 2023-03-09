@@ -1,0 +1,132 @@
+{% extends "movies/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container-fluid">
+        {% include 'movies/navbar2.html' %}
+    </div>
+</div>
+<div class="container">
+    <div class="container-fluid movie-show-section">
+        <h5><b>박스오피스 순위</b></h5>
+        <div class="row">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                {% for img in imgs %}
+                    <div class="swiper-slide">
+                        <a href="https://pedia.watcha.com/ko-KR/contents/md7YzgM">
+                            <img src="{{img}}" class="fluid img-thumbnail" width="300px;">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="swiper-button-next" style="color:red;"></div>
+                <div class="swiper-button-prev" style="color:red;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid movie-show-section">
+        <h5><b>왓플릭스 Top 10</b></h5>
+        <div class="row">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                {% for img in imgs2 %}
+                    <div class="swiper-slide">
+                        <a href="https://pedia.watcha.com/ko-KR/contents/md7YzgM">
+                            <img src="{{img}}" class="fluid img-thumbnail" width="300px">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="swiper-button-next" style="color:red;"></div>
+                <div class="swiper-button-prev" style="color:red;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid movie-show-section">
+        <h5><b>별점이 높은 작품</b></h5>
+        <div class="row">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                {% for img in imgs %}
+                    <div class="swiper-slide">
+                        <a href="https://pedia.watcha.com/ko-KR/contents/md7YzgM">
+                            <img src="{{img}}" class="fluid img-thumbnail" width="300px">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="swiper-button-next" style="color:red;"></div>
+                <div class="swiper-button-prev" style="color:red;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid movie-show-section">
+        <h5><b>국내 영화 순위</b></h5>
+        <div class="row">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                {% for img in imgs %}
+                    <div class="swiper-slide">
+                        <a href="https://pedia.watcha.com/ko-KR/contents/md7YzgM">
+                            <img src="{{img}}" class="fluid img-thumbnail" width="300px">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="swiper-button-next" style="color:red;"></div>
+                <div class="swiper-button-prev" style="color:red;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid movie-show-section">
+        <h5><b>애니메이션 순위</b></h5>
+        <div class="row">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                {% for img in imgs %}
+                    <div class="swiper-slide">
+                        <a href="https://pedia.watcha.com/ko-KR/contents/md7YzgM">
+                            <img src="{{img}}" class="fluid img-thumbnail" width="300px">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                <div class="swiper-button-next" style="color:red;"></div>
+                <div class="swiper-button-prev" style="color:red;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper', {
+        slidesPerView: 5,
+        direction: getDirection(),
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+        },
+        on: {
+        resize: function () {
+            swiper.changeDirection(getDirection());
+        },
+        },
+    });
+
+    function getDirection() {
+        var windowWidth = window.innerWidth;
+        var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+
+        return direction;
+    }
+    </script>
+{% endblock %}
