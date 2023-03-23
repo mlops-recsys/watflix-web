@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open(f"{BASE_DIR}/secrets.json") as f:
     secrets = json.loads(f.read())
 
+
 def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
@@ -71,10 +72,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [ 
+
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
 ]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -120,7 +123,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-        {
+    {
         'NAME': 'movies.validators.CustomPasswordValidator',
     },
 ]
@@ -155,7 +158,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'movies.User'
 AUTHENTICATION_BACKENDS = [
-	'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -174,21 +177,21 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 
 # EMAIL
-ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # 가입설정
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True # 가입시 비밀번호 두번 입력해야함
-ACCOUNT_USERNAME_REQUIRED = True # 가입시 유저네임을 써야함
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # 가입시 비밀번호 두번 입력해야함
+ACCOUNT_USERNAME_REQUIRED = True  # 가입시 유저네임을 써야함
 
 
-ACCOUNT_SESSION_REMEMBER = True # 브라우저를 꺼도 로그인을 유지함
+ACCOUNT_SESSION_REMEMBER = True  # 브라우저를 꺼도 로그인을 유지함
 ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account_email_confirmation_done'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'account_email_confirmation_done'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 # 로그인 설정
-ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True # 비밀번호 입력 실패할 때 다시 폼 입력해줌
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5 # 5회 시도 가능
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 60 # 60초 동안 로그인 불가
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True  # 비밀번호 입력 실패할 때 다시 폼 입력해줌
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5  # 5회 시도 가능
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 60  # 60초 동안 로그인 불가
